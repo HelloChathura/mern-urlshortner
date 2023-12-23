@@ -10,8 +10,8 @@ const shortUrlSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
-  createuser:{
-    type:Int,
+  createduser:{
+    type:Number,
     required:false,
   }
 
