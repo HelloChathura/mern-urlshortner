@@ -10,10 +10,19 @@ const shortUrlSchema = new mongoose.Schema({
     type:String,
     required:true,
   },
+  clickcount:{
+    type:Number,
+    required:false,
+    default:0,
+  },
   createduser:{
     type:Number,
     required:false,
-  }
+  },
+  updateduser:{
+    type:Number,
+    required:false,
+  },
 
 },{timestamps:true});
 

@@ -31,6 +31,15 @@ export default function Home() {
     setShowModal(false);
   };
 
+  const getFormattedShortCode = (url) => {
+    const parts = url.split("/");
+    const shortCode = parts[parts.length - 1].replace("#", "");
+    const formattedShortCode = shortCode.includes("+")
+      ? shortCode
+      : shortCode + "+";
+    return formattedShortCode;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,7 +54,7 @@ export default function Home() {
       });
       const data = await res.json();
       setJsonData(data);
-      console.log(data);
+
 
       if (data.success === false) {
         setError(data.message);
@@ -62,6 +71,7 @@ export default function Home() {
   };
 
   return (
+  
     <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
       <section className="bg-indigo-900 h-screen flex items-center justify-center">
         <Notifications />
@@ -91,14 +101,16 @@ export default function Home() {
                     <FontAwesomeIcon icon={faChessBoard} className="mr-1" />
                   </a>
                   <a
-                    href="#"
+                    href=""
                     className="text-purple-600 ml-2 flex items-center"
                     rel="noopener noreferrer"
                   >
                     <FontAwesomeIcon
                       icon={faChartSimple}
                       className="mr-1"
-                      onClick={() => navigate("/about/5")}
+                      onClick={() =>
+                        navigate(getFormattedShortCode(jsonData.shorturl))
+                      }
                     />
                   </a>
                   <a
@@ -137,7 +149,6 @@ export default function Home() {
           </button>
         </div>
       </section>
-
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-800 opacity-75"></div>

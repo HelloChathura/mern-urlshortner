@@ -4,6 +4,11 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Reroute from "./components/Reroute";
+import Stats from "./components/Stats";
+import StatsCode from "./components/Stats";
+import RedirectComponent from "./components/Stats"
+
 
 export default function App(){
   return (<BrowserRouter>
@@ -12,6 +17,11 @@ export default function App(){
     <Route path='/' element={<Home />} />
     <Route path='/about' element={<About />} />
     <Route path="/about/:id" element={<About />} />
+    <Route path="/:shortCode" element={<Reroute />}/>
+    <Route path="stats/:shortCode" element={<Stats />} />
+    <Route path="/:shortCode" element={<StatsCode />} />
+    <Route path="/:shortCode" element={<RedirectComponent />} />
+   
   </Routes>
 
   </BrowserRouter> )

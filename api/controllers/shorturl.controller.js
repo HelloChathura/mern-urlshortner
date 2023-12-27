@@ -8,18 +8,16 @@ export const test = (req, res) => {
 };
 
 export const addShortUrl = async (req, res, next) => {
-  let rndshorturl = "";
-  const { shorturl, originalurl, createduser=1 } = req.body;
 
-    let rndshorturltext = generateRandomText();
-    rndshorturl = "https://urlex.site/" + rndshorturltext;
-    //const clientIp = req.header("x-forwarded-for") || req.socket.remoteAddress;
-    //console.log(ipAddress);
+  const { shorturl, originalurl,clickcount, createduser = 1,updateduser=1 } = req.body;
+  const uniqueShortUrl = await generateUniqueShortUrl();
 
   const newReq = new ShortUrl({
-    shorturl: rndshorturl,
+    shorturl: uniqueShortUrl,
     originalurl,
+    clickcount,
     createduser,
+    updateduser
   });
 
   try {
@@ -42,4 +40,29 @@ function generateRandomText() {
   }
 
   return randomText;
+}
+
+async function generateUniqueShortUrl() {
+    let rndshorturltext;
+    let rndshorturl;
+    let isShortUrlExists;
+
+    do {
+        rndshorturltext = generateRandomText();
+        rndshorturl = "http://localhost:5173/" + rndshorturltext;
+
+        isShortUrlExists = await ShortUrl.findOne({ shorturl: rndshorturl });
+
+    } while (isShortUrlExists);
+
+    return rndshorturl;
+}
+
+export const getActualUrlFromShortCode = async (req,res) => {
+    console.log("inside");
+    const shortUrl = await ShortUrl.findOne({shorturl : req.body.shortUrl});
+    console.log("-----------------------");
+    console(shortUrl);
+    console.log("-----------------------");
+    await res.ShortUrl;
 }
