@@ -13,31 +13,39 @@ const RedirectComponent = () => {
 
   useEffect(() => {
     if (
-      shortCode.endsWith("+") ||
-      shortCode.endsWith("_") ||
-      shortCode.endsWith("#")
+        shortCode.endsWith("+") ||
+        shortCode.endsWith("_") ||
+        shortCode.endsWith("#")
     ) {
+        navigate("/stats/" + shortCode);
+    } else {
+        const handleGetActualUrl = async () => {
+            try {
+             
+                const response = await fetch('/api/shorturl/getActualUrl', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ shortCode }),
+                });
 
-      navigate("/stats/" + shortCode);
-    } 
-    else 
-    {
-      //API call
-      //getActualUrlFromShortCode
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
 
-      const urlMapping = {
-        [shortCode] : "https://www.example.com/original-url",
-      };
+                const data = await response.json();
+               // setActualUrl(data.actualUrl);
+            } catch (error) {
+                console.error('Error fetching actual URL:', error);
+                setError('Error fetching actual URL');
+            }
+        };
 
-      const longUrl = urlMapping[shortCode];
-
-      if (longUrl) {
-        window.location.replace(longUrl);
-      } else {
-        navigate("/");
-      }
+        // Call the function when the component mounts
+        handleGetActualUrl();
     }
-  }, [shortCode, navigate]);
+}, [shortCode, navigate]);
 
   return <div></div>;
 };

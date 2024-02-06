@@ -7,6 +7,6 @@ router.get('/test',test);
 
 router.post("/add" ,addShortUrl);
 
-router.get('/getUrl',getActualUrlFromShortCode);
+router.post('/getActualUrl',getActualUrlFromShortCode);
 
 export default router;

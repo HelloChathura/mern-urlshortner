@@ -1,0 +1,1 @@
+import Redirect from "./components/redirect";

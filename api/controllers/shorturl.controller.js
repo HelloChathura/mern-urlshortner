@@ -58,11 +58,10 @@ async function generateUniqueShortUrl() {
     return rndshorturl;
 }
 
-export const getActualUrlFromShortCode = async (req,res) => {
+export const getActualUrlFromShortCode = async (req,res,next) => {
     console.log("inside");
+    console.log(req.body.shortUrl);
     const shortUrl = await ShortUrl.findOne({shorturl : req.body.shortUrl});
-    console.log("-----------------------");
-    console(shortUrl);
-    console.log("-----------------------");
+  
     await res.ShortUrl;
 }
