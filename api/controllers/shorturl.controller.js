@@ -58,10 +58,26 @@ async function generateUniqueShortUrl() {
     return rndshorturl;
 }
 
-export const getActualUrlFromShortCode = async (req,res,next) => {
-    console.log("inside");
-    console.log(req.body.shortUrl);
-    const shortUrl = await ShortUrl.findOne({shorturl : req.body.shortUrl});
-  
-    await res.ShortUrl;
-}
+// export const getActualUrlFromShortCode = async (req,res,next) => {
+//     //console.log(req.body.shortCode);
+//     //console.log(req.body.shortUrl);
+//     const x = "http://localhost:5173/"+req.body.shortCode;
+//     const shortUrl = await ShortUrl.findOne({shorturl : x});
+//   console.log(shortUrl);
+//     await res.shortUrl;
+// }
+
+export const getActualUrlFromShortCode = async (req, res, next) => {
+  try {
+      const x = "http://localhost:5173/" + req.body.shortCode;
+      const shortUrl = await ShortUrl.findOne({ shorturl: x });
+      if (!shortUrl) {
+          return res.status(404).json({ error: 'Short URL not found' });
+      }
+      const actualUrl = shortUrl.originalurl;
+      res.json({ actualUrl });
+  } catch (error) {
+      console.error('Error fetching actual URL:', error);
+      res.status(500).json({ error: 'Error fetching actual URL' });
+  }
+};

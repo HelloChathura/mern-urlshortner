@@ -35,7 +35,8 @@ const RedirectComponent = () => {
                 }
 
                 const data = await response.json();
-               // setActualUrl(data.actualUrl);
+                const actualUrl = data.actualUrl.startsWith('http') ? data.actualUrl : 'http://' + data.actualUrl;
+                window.location.href = actualUrl;
             } catch (error) {
                 console.error('Error fetching actual URL:', error);
                 setError('Error fetching actual URL');

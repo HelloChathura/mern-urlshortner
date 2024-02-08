@@ -4,11 +4,13 @@ import {
   faChartSimple,
   faChessBoard,
   faEnvelope,
+  faShareAlt
 } from "@fortawesome/free-solid-svg-icons";
 import Notifications, { notify } from "react-notify-toast";
 import { useNavigate } from "react-router-dom";
 import EmailModal from "../components/EmailModal";
 import QRModal from "../components/QRModal";
+import SocialShareModal from "../components/SocialShareModal";
 
 export default function Home() {
   const [formData, setFormData] = useState({});
@@ -17,6 +19,7 @@ export default function Home() {
   const [jsonData, setJsonData] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
+  const [showSSModal, setShowSSModal] = useState(false);
   const navigate = useNavigate();
  
 
@@ -141,6 +144,17 @@ export default function Home() {
                   </a>
                   <a
                     href="#"
+                    className="text-purple-600 ml-2 flex items-center"
+                    rel="noopener noreferrer"
+                  >
+                    <FontAwesomeIcon
+                      icon={faShareAlt}
+                      className="mr-1"
+                      onClick={() => setShowSSModal(true)}
+                    />
+                  </a>
+                  <a
+                    href="#"
                     className="text-blue-500 ml-2 flex items-center"
                     onClick={(e) => {
                       e.preventDefault();
@@ -167,6 +181,7 @@ export default function Home() {
       </section>
       {showModal && <EmailModal setShowModal={setShowModal} shortUrl={jsonData.shorturl} />}
       {showQRModal && <QRModal setShowQRModal={setShowQRModal} shortUrl={jsonData.shorturl} />}
+      {showSSModal && <SocialShareModal setShowSSModal={setShowSSModal} shortUrl={jsonData.shorturl} />}
     </form>
   );
 }
