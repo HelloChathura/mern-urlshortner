@@ -13,7 +13,7 @@ import KnowledgeBase from "./pages/KnowledgeBase";
 
 export default function App(){
   return (<BrowserRouter>
-   {/* <Header />  */}
+   { <Header /> }
   <Routes>
     <Route path='/' element={<Home />} />
     <Route path='/about' element={<About />} />
@@ -25,6 +25,6 @@ export default function App(){
     <Route path='/knowledgebase' element={<KnowledgeBase />} />
    
   </Routes>
-  {/* <Footer /> */}
+  {<Footer /> }
   </BrowserRouter> )
 }

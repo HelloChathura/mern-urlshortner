@@ -22,7 +22,10 @@ const shortUrlSchema = new mongoose.Schema({
   updateduser:{
     type:Number,
     required:false,
-  },
+  },urlAccess: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'UrlAccess',
+  }],
 
 },{timestamps:true});
 

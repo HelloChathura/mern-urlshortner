@@ -91,6 +91,7 @@ export default function Home() {
       <section className="bg-indigo-900 h-screen flex items-center justify-center">
         <Notifications />
         <div className="container mx-auto px-4 py-8 w-1/2 flex flex-col md:flex-row items-center">
+          
           <div className="relative flex-grow md:w-3/4">
             <input
              className="w-full h-16 px-3 rounded mb-4 md:mb-0 mt-0 focus:outline-none focus:shadow-outline text-xl px-8 shadow-lg"

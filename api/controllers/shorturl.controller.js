@@ -1,5 +1,8 @@
 import ShortUrl from "../models/shorturl.model.js";
 import crypto from "crypto";
+import UrlAccess from "../models/urlaccess.model.js";
+import browser from "detect-browser";
+
 
 export const test = (req, res) => {
   res.json({
@@ -58,26 +61,36 @@ async function generateUniqueShortUrl() {
     return rndshorturl;
 }
 
-// export const getActualUrlFromShortCode = async (req,res,next) => {
-//     //console.log(req.body.shortCode);
-//     //console.log(req.body.shortUrl);
-//     const x = "http://localhost:5173/"+req.body.shortCode;
-//     const shortUrl = await ShortUrl.findOne({shorturl : x});
-//   console.log(shortUrl);
-//     await res.shortUrl;
-// }
-
 export const getActualUrlFromShortCode = async (req, res, next) => {
   try {
+
       const x = "http://localhost:5173/" + req.body.shortCode;
       const shortUrl = await ShortUrl.findOne({ shorturl: x });
       if (!shortUrl) {
           return res.status(404).json({ error: 'Short URL not found' });
       }
-      const actualUrl = shortUrl.originalurl;
-      res.json({ actualUrl });
+
+      //Update Tracker
+    const userAgent = req.headers['user-agent'];
+
+    const ua = userAgent;
+    const browserRegex = /(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i;
+    const match = ua.match(browserRegex) || [];
+
+    const urlAccess = await UrlAccess.create({
+      shortUrlId: shortUrl._id,
+      browserAgent: match[1] || '' +" " + match[2] || '0',
+      ipAddress: req.ip, 
+      timestamp: Date.now(),
+    });
+    await UrlAccess.updateOne({ $push: { UrlAccess: urlAccess } });
+
+    const actualUrl = shortUrl.originalurl;
+    res.json({ actualUrl });
   } catch (error) {
       console.error('Error fetching actual URL:', error);
       res.status(500).json({ error: 'Error fetching actual URL' });
   }
 };
+
+
