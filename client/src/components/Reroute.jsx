@@ -52,3 +52,4 @@ const RedirectComponent = () => {
 };
 
 export default RedirectComponent;
+
