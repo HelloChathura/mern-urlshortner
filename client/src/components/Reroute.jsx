@@ -43,7 +43,7 @@ const RedirectComponent = () => {
             }
         };
 
-        // Call the function when the component mounts
+        // Call the function when the component mounts //
         handleGetActualUrl();
     }
 }, [shortCode, navigate]);
