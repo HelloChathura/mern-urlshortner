@@ -50,7 +50,7 @@ export default function QRModal({ setShowQRModal, shortUrl }) {
                     {/*body*/}
                     <div className="relative p-6 flex-auto">
                     <p className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                    Download a QR code scanner app on your smartphone. Scan the QR code provided, and if you find anything interesting, click  <u><strong><a href={"https://urlshortner-l1b8.onrender.com/knowledgebase"} target="_blank" rel="noopener noreferrer">
+                    Download a QR code scanner app on your smartphone. Scan the QR code provided, and if you find anything interesting, click  <u><strong><a href={"http://localhost:5173/knowledgebase"} target="_blank" rel="noopener noreferrer">
          here
         </a></strong></u> to access our knowledge base for more information.
                   </p>

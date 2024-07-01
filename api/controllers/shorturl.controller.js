@@ -52,7 +52,7 @@ async function generateUniqueShortUrl() {
 
     do {
         rndshorturltext = generateRandomText();
-        rndshorturl = "https://urlshortner-l1b8.onrender.com/" + rndshorturltext;
+        rndshorturl = "http://localhost:5173/" + rndshorturltext;
 
         isShortUrlExists = await ShortUrl.findOne({ shorturl: rndshorturl });
 
@@ -64,7 +64,7 @@ async function generateUniqueShortUrl() {
 export const getActualUrlFromShortCode = async (req, res, next) => {
   try {
 
-      const x = "https://urlshortner-l1b8.onrender.com/" + req.body.shortCode;
+      const x = "http://localhost:5173/" + req.body.shortCode;
       const shortUrl = await ShortUrl.findOne({ shorturl: x });
       if (!shortUrl) {
           return res.status(404).json({ error: 'Short URL not found' });
