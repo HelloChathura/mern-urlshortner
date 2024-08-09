@@ -6,7 +6,7 @@ import browser from "detect-browser";
 
 export const test = (req, res) => {
   res.json({
-    message: "from c",
+    message: "from cj",
   });
 };
 
